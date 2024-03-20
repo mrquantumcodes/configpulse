@@ -53,11 +53,11 @@ M.find_time = function()
 	minutes = math.floor((min_time % 3600) / 60)
 
 	if days > 0 then
-		print(string.format("Last modified %d days, %d hours, %d minutes ago", days, hours, minutes))
+		print(string.format("Config last modified %d days, %d hours, %d minutes ago", days, hours, minutes))
 	elseif hours > 0 then
-		print(string.format("Last modified %d hours, %d minutes ago", hours, minutes))
+		print(string.format("Config last modified %d hours, %d minutes ago", hours, minutes))
 	else
-		print(string.format("Last modified %d minutes ago", minutes))
+		print(string.format("Config last modified %d minutes ago", minutes))
 	end
 end
 
