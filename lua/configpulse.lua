@@ -34,4 +34,4 @@ function M.display_days_since_last_edit()
     vim.api.nvim_out_write('You haven\'t touched your config in ' .. math.floor(days_since_last_edit) .. ' days.\n')
 end
 
--- vim.cmd([[command! ConfigPulse lua require('configpulse').display_days_since_last_edit()]])
+vim.cmd([[command! ConfigPulse lua require('configpulse').display_days_since_last_edit()]])
