@@ -62,6 +62,8 @@ M.find_time = function()
 end
 
 
-return M
-
 -- set command ConfigPulse lua require('configpulse').find_time()
+vim.cmd(
+[[command! ConfigPulse lua require"configpulse".find_time() ]])
+
+return M
