@@ -1,5 +1,5 @@
 # ConfigPulse
-A simple plugin to see how long it's been since you touched your config
+A simple plugin to see how long it's been since you touched your Neovim config
 
 # Installation
 Install using your favourite plugin manager. Url is `mrquantumcodes/configpulse`
