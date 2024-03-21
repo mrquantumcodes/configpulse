@@ -27,22 +27,15 @@ M.traverse_directory = function(directory)
     end
 end
 
--- Specify the root directory to start traversal
-
-M.find_time = function(should_return)
-	if not should_return then
-		should_return = false
-	end
-
+M.get_time = function()
 	M.root_directory = vim.fn.stdpath('config')
 	M.traverse_directory(M.root_directory)
 
-	local times = {}
-	min_time = 0
+	local min_time = 0
 
 	-- Print the collected file paths
 	for _, path in ipairs(M.file_paths) do
-		mod_time = vim.fn.getftime(path)
+		local mod_time = vim.fn.getftime(path)
 		
 
 		-- find which file was modified most recently
@@ -54,21 +47,24 @@ M.find_time = function(should_return)
 
 	-- convert to human readable time in days, hours, minutes
 	min_time = os.time() - min_time
-	days = math.floor(min_time / 86400)
-	hours = math.floor((min_time % 86400) / 3600)
-	minutes = math.floor((min_time % 3600) / 60)
+	return {
+		days =  math.floor(min_time / 86400),
+		hours = math.floor((min_time % 86400) / 3600),
+		minutes = math.floor((min_time % 3600) / 60)
+	}
+end
 
-	if should_return then
-		return {days, hours, minutes}
-	end
+-- Specify the root directory to start traversal
 
+M.find_time = function()
+	local time = M.get_time()
 
-	if days > 0 then
-		print(string.format("Config last modified %d days, %d hours, %d minutes ago", days, hours, minutes))
-	elseif hours > 0 then
-		print(string.format("Config last modified %d hours, %d minutes ago", hours, minutes))
+	if time.days > 0 then
+		print(string.format("Config last modified %d days, %d hours, %d minutes ago", time.days, time.hours, time.minutes))
+	elseif time.hours > 0 then
+		print(string.format("Config last modified %d hours, %d minutes ago", time.hours, time.minutes))
 	else
-		print(string.format("Config last modified %d minutes ago", minutes))
+		print(string.format("Config last modified %d minutes ago", time.minutes))
 	end
 end
 
