@@ -15,7 +15,9 @@ M.traverse_directory = function(directory)
         local is_directory = vim.fn.isdirectory(path) == 1
 
         if not is_directory then
-            table.insert(M.file_paths, path)
+			if item ~= "lazy-lock.json" then
+            	table.insert(M.file_paths, path)
+			end
         elseif item ~= '.' and item ~= '..' then
 			-- skip git directory
 			if item ~= '.git' then
@@ -53,11 +55,11 @@ M.find_time = function()
 	minutes = math.floor((min_time % 3600) / 60)
 
 	if days > 0 then
-		print(string.format("Config last modified %d days, %d hours, %d minutes ago", days, hours, minutes))
+		print(string.format("Last modified %d days, %d hours, %d minutes ago", days, hours, minutes))
 	elseif hours > 0 then
-		print(string.format("Config last modified %d hours, %d minutes ago", hours, minutes))
+		print(string.format("Last modified %d hours, %d minutes ago", hours, minutes))
 	else
-		print(string.format("Config last modified %d minutes ago", minutes))
+		print(string.format("Last modified %d minutes ago", minutes))
 	end
 end
 
