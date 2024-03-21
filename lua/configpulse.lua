@@ -29,7 +29,11 @@ end
 
 -- Specify the root directory to start traversal
 
-M.find_time = function()
+M.find_time = function(should_return)
+	if not should_return then
+		should_return = false
+	end
+
 	M.root_directory = vim.fn.stdpath('config')
 	M.traverse_directory(M.root_directory)
 
@@ -54,12 +58,17 @@ M.find_time = function()
 	hours = math.floor((min_time % 86400) / 3600)
 	minutes = math.floor((min_time % 3600) / 60)
 
+	if should_return then
+		return days, hours, minutes
+	end
+
+
 	if days > 0 then
-		print(string.format("Last modified %d days, %d hours, %d minutes ago", days, hours, minutes))
+		print(string.format("Config last modified %d days, %d hours, %d minutes ago", days, hours, minutes))
 	elseif hours > 0 then
-		print(string.format("Last modified %d hours, %d minutes ago", hours, minutes))
+		print(string.format("Config last modified %d hours, %d minutes ago", hours, minutes))
 	else
-		print(string.format("Last modified %d minutes ago", minutes))
+		print(string.format("Config last modified %d minutes ago", minutes))
 	end
 end
 
