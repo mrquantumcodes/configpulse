@@ -59,7 +59,7 @@ M.find_time = function(should_return)
 	minutes = math.floor((min_time % 3600) / 60)
 
 	if should_return then
-		return days, hours, minutes
+		return {days, hours, minutes}
 	end
 
 
